@@ -8,6 +8,7 @@ const router = express_1.default.Router();
 router.get("/", async (req, res) => {
     //   let respy = await getMSCEvents("MSDU2774304");
     //   let respy = await getZimEvents("TCNU6836631");
+    //   let respy = await getMaerskEvents("TCKU1122133");
 });
 exports.default = router;
 //# sourceMappingURL=duplicate-container.js.map
