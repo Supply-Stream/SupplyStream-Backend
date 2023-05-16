@@ -1,0 +1,1 @@
+{"version":3,"file":"axiom.js","sourceRoot":"","sources":["../../src/config/axiom.ts"],"names":[],"mappings":";;;AAAA,oDAA6C;AAC7C,mCAAgC;AAChC,IAAA,eAAM,GAAE,CAAC;AAEI,QAAA,MAAM,GAAG,IAAI,mBAAM,CAAC;IAC/B,KAAK,EAAE,OAAO,CAAC,GAAG,CAAC,WAAW;IAC9B,KAAK,EAAE,OAAO,CAAC,GAAG,CAAC,YAAY;CAChC,CAAC,CAAC"}

@@ -5,8 +5,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const path_1 = __importDefault(require("path"));
+const fs_1 = __importDefault(require("fs"));
 const firebase_1 = __importDefault(require("../../config/firebase"));
 const exceljs_1 = __importDefault(require("exceljs"));
+const axiom_1 = require("../../config/axiom");
 const router = express_1.default.Router();
 router.get("/", async (req, res) => {
     const company = req.query.company;
@@ -75,15 +77,19 @@ router.get("/", async (req, res) => {
         // delete the file after it's sent to the client
         res.sendFile(filePath, () => {
             // delete the file after it's sent to the client
-            // fs.unlink(filePath, (err) => {
-            //   if (err) {
-            //     console.error(err);
-            //   }
-            // });
+            fs_1.default.unlink(filePath, (err) => {
+                if (err) {
+                    console.error(err);
+                }
+            });
         });
     }
     catch (error) {
-        console.log(error);
+        await axiom_1.client.ingestEvents("supplystream-errors", [{ error: error }]);
+        res.sendStatus(400).send({
+            error: "error getting workbook",
+            originEndpoint: "get-workbook",
+        });
     }
 });
 exports.default = router;
