@@ -92,11 +92,11 @@ router.get("/", async (req: Request, res: Response) => {
     // delete the file after it's sent to the client
     res.sendFile(filePath, () => {
       // delete the file after it's sent to the client
-      // fs.unlink(filePath, (err) => {
-      //   if (err) {
-      //     console.error(err);
-      //   }
-      // });
+      fs.unlink(filePath, (err) => {
+        if (err) {
+          console.error(err);
+        }
+      });
     });
   } catch (error) {
     console.log(error);
