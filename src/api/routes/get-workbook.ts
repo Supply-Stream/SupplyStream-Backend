@@ -3,6 +3,7 @@ import path from "path";
 import fs from "fs";
 import admin from "../../config/firebase";
 import excel from "exceljs";
+import { client } from "../../config/axiom";
 const router = express.Router();
 
 router.get("/", async (req: Request, res: Response) => {
@@ -99,7 +100,11 @@ router.get("/", async (req: Request, res: Response) => {
       });
     });
   } catch (error) {
-    console.log(error);
+    await client.ingestEvents("supplystream-errors", [{ error: error }]);
+    res.sendStatus(400).send({
+      error: "error getting workbook",
+      originEndpoint: "get-workbook",
+    });
   }
 });
 
