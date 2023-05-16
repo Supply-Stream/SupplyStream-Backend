@@ -31,6 +31,9 @@ export default async function getMaerskEvents(
 
     return MAERSK_RESPONSE?.data?.events;
   } catch (error) {
+    await client.ingestEvents("supplystream-errors", [
+      { error: error, originEndpoint: "maersk-events" },
+    ]);
     return error;
   }
 }

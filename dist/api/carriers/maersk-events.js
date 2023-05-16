@@ -5,6 +5,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const axios_1 = __importDefault(require("axios"));
 const dotenv_1 = require("dotenv");
+const axiom_1 = require("../../config/axiom");
 (0, dotenv_1.config)();
 async function getMaerskEvents(containerID) {
     const bodyParams = new URLSearchParams();
@@ -23,6 +24,9 @@ async function getMaerskEvents(containerID) {
         return MAERSK_RESPONSE?.data?.events;
     }
     catch (error) {
+        await axiom_1.client.ingestEvents("supplystream-errors", [
+            { error: error, originEndpoint: "maersk-events" },
+        ]);
         return error;
     }
 }
