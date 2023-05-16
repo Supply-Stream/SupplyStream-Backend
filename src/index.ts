@@ -1,12 +1,12 @@
-const express = require("express");
-require("dotenv").config();
+import { config } from "dotenv";
+import express from "express";
+import getWorkbook from "./api/routes/get-workbook";
+config();
 
 const app = express();
 
-app.get("/", (req, res) => {
-  res.send("Hello World!");
-});
+app.use("/get-workbook", getWorkbook);
 
 app.listen(process.env.PORT, () => {
-  console.log("Server is running on port 3001");
+  console.log(`Server is running on port ${process.env.PORT}`);
 });
