@@ -1,11 +1,6 @@
 import express, { Request, Response } from "express";
 import admin from "../../config/firebase";
 import { client } from "../../config/axiom";
-import getMSCEvents from "../carriers/msc-events";
-import getZimEvents from "../carriers/zim-events";
-import getMaerskEvents from "../carriers/maersk-events";
-import getOneEvents from "../carriers/one-events";
-import getCoscoEvents from "../carriers/cosco-events";
 
 const router = express.Router();
 
