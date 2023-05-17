@@ -5,6 +5,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const firebase_1 = __importDefault(require("../config/firebase"));
 const add_container_1 = __importDefault(require("../api/helpers/add-container"));
+const axiom_1 = require("../config/axiom");
 async function updateAllContainers() {
     let allContainers = await firebase_1.default.firestore().collection("containers").get();
     // no container documents
@@ -24,6 +25,10 @@ async function updateAllContainers() {
         let containerEvents = containerEventDocs.docs;
         await (0, add_container_1.default)(shippingLine, containerID, false, containerEvents);
     }
+    await axiom_1.client.ingestEvents("supplystream-cron", {
+        type: "success",
+        timestamp: new Date(),
+    });
 }
 exports.default = updateAllContainers;
 //# sourceMappingURL=update-all-containers.js.map

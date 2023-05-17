@@ -1,6 +1,6 @@
 import admin from "../config/firebase";
 import addContainer from "../api/helpers/add-container";
-
+import { client } from "../config/axiom";
 export default async function updateAllContainers() {
   let allContainers = await admin.firestore().collection("containers").get();
 
@@ -26,4 +26,8 @@ export default async function updateAllContainers() {
 
     await addContainer(shippingLine, containerID, false, containerEvents);
   }
+  await client.ingestEvents("supplystream-cron", {
+    type: "success",
+    timestamp: new Date(),
+  });
 }

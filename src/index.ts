@@ -19,6 +19,10 @@ app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
+cron.schedule("0 7,13 * * *", async () => {
+  updateAllContainers();
+});
+
 app.use("/get-workbook", getWorkbook);
 
 app.use("/delete-comment", deleteComment);
