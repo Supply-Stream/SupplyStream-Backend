@@ -5,7 +5,7 @@ import express from "express";
 import getWorkbook from "./api/routes/get-workbook";
 import deleteComment from "./api/routes/delete-comment";
 import duplicateContainer from "./api/routes/duplicate-container";
-
+import addNewContainer from "./api/routes/add-new-container";
 config();
 const app = express();
 
@@ -18,6 +18,8 @@ app.use("/get-workbook", getWorkbook);
 app.use("/delete-comment", deleteComment);
 
 app.use("/duplicate-container", duplicateContainer);
+
+app.use("/add-new-container", addNewContainer);
 
 app.listen(process.env.PORT, () => {
   console.log(`Server is running on port ${process.env.PORT}`);
