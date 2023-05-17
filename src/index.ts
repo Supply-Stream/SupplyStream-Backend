@@ -8,6 +8,7 @@ import duplicateContainer from "./api/routes/duplicate-container";
 import addNewContainer from "./api/routes/add-new-container";
 import addMultipleContainers from "./api/routes/add-multiple-containers";
 import getContainerEvents from "./api/routes/get-container-events";
+import archiveContainer from "./api/routes/archive-container";
 
 config();
 const app = express();
@@ -27,6 +28,8 @@ app.use("/add-new-container", addNewContainer);
 app.use("/add-multiple-containers", addMultipleContainers);
 
 app.use("/get-container-events", getContainerEvents);
+
+app.use("/archive-container", archiveContainer);
 
 app.listen(process.env.PORT, () => {
   console.log(`Server is running on port ${process.env.PORT}`);
