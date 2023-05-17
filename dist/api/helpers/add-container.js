@@ -15,7 +15,7 @@ const add_msc_event_1 = __importDefault(require("./add-event-docs/add-msc-event"
 const add_maersk_event_1 = __importDefault(require("./add-event-docs/add-maersk-event"));
 const add_zim_event_1 = __importDefault(require("./add-event-docs/add-zim-event"));
 const add_one_event_1 = __importDefault(require("./add-event-docs/add-one-event"));
-async function addContainer(shippingLine, containerID, newContainer) {
+async function addContainer(shippingLine, containerID, newContainer, existingEvents) {
     switch (shippingLine) {
         case "MSC":
             let msc_events = await (0, msc_events_1.default)(containerID);
@@ -23,6 +23,13 @@ async function addContainer(shippingLine, containerID, newContainer) {
                 await (0, update_msc_table_1.default)(containerID, event);
                 if (newContainer) {
                     (0, add_msc_event_1.default)(event, containerID);
+                }
+                else {
+                    // check if event exists
+                    let eventExists = existingEvents?.find((e) => e.data().event.eventId === event.eventId);
+                    if (!eventExists) {
+                        (0, add_msc_event_1.default)(event, containerID);
+                    }
                 }
             }
             break;
@@ -33,6 +40,13 @@ async function addContainer(shippingLine, containerID, newContainer) {
                 if (newContainer) {
                     (0, add_maersk_event_1.default)(event, containerID);
                 }
+                else {
+                    // check if event exists
+                    let eventExists = existingEvents?.find((e) => e.data().event.eventID === event.eventID);
+                    if (!eventExists) {
+                        (0, add_maersk_event_1.default)(event, containerID);
+                    }
+                }
             }
             break;
         case "ZIM":
@@ -42,6 +56,13 @@ async function addContainer(shippingLine, containerID, newContainer) {
                 if (newContainer) {
                     (0, add_zim_event_1.default)(event, containerID);
                 }
+                else {
+                    // check if event exists
+                    let eventExists = existingEvents?.find((e) => e.data().event.eventDateTime === event.activityDateTz);
+                    if (!eventExists) {
+                        (0, add_zim_event_1.default)(event, containerID);
+                    }
+                }
             }
             break;
         case "ONE":
@@ -50,6 +71,13 @@ async function addContainer(shippingLine, containerID, newContainer) {
                 await (0, update_one_table_1.default)(containerID, event);
                 if (newContainer) {
                     (0, add_one_event_1.default)(event, containerID);
+                }
+                else {
+                    // check if event exists
+                    let eventExists = existingEvents?.find((e) => e.data().event.eventDateTime === event.eventDt);
+                    if (!eventExists) {
+                        (0, add_one_event_1.default)(event, containerID);
+                    }
                 }
             }
             break;

@@ -1,5 +1,6 @@
 import { config } from "dotenv";
 import cors from "cors";
+import cron from "node-cron";
 import bodyParser from "body-parser";
 import express from "express";
 import getWorkbook from "./api/routes/get-workbook";
@@ -9,6 +10,7 @@ import addNewContainer from "./api/routes/add-new-container";
 import addMultipleContainers from "./api/routes/add-multiple-containers";
 import getContainerEvents from "./api/routes/get-container-events";
 import archiveContainer from "./api/routes/archive-container";
+import updateAllContainers from "./cron/update-all-containers";
 
 config();
 const app = express();

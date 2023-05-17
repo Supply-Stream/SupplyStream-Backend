@@ -15,7 +15,8 @@ import addOneEvent from "./add-event-docs/add-one-event";
 export default async function addContainer(
   shippingLine: string,
   containerID: string,
-  newContainer: boolean
+  newContainer: boolean,
+  existingEvents?: any[]
 ) {
   switch (shippingLine) {
     case "MSC":
@@ -24,6 +25,14 @@ export default async function addContainer(
         await updateMSCTable(containerID, event);
         if (newContainer) {
           addMscEvent(event, containerID);
+        } else {
+          // check if event exists
+          let eventExists = existingEvents?.find(
+            (e) => e.data().event.eventId === event.eventId
+          );
+          if (!eventExists) {
+            addMscEvent(event, containerID);
+          }
         }
       }
       break;
@@ -33,6 +42,14 @@ export default async function addContainer(
         await updateMaerskTable(containerID, event);
         if (newContainer) {
           addMaerskEvent(event, containerID);
+        } else {
+          // check if event exists
+          let eventExists = existingEvents?.find(
+            (e) => e.data().event.eventID === event.eventID
+          );
+          if (!eventExists) {
+            addMaerskEvent(event, containerID);
+          }
         }
       }
       break;
@@ -42,6 +59,14 @@ export default async function addContainer(
         await updateZimTable(containerID, event);
         if (newContainer) {
           addZimEvent(event, containerID);
+        } else {
+          // check if event exists
+          let eventExists = existingEvents?.find(
+            (e) => e.data().event.eventDateTime === event.activityDateTz
+          );
+          if (!eventExists) {
+            addZimEvent(event, containerID);
+          }
         }
       }
       break;
@@ -51,6 +76,14 @@ export default async function addContainer(
         await updateOneTable(containerID, event);
         if (newContainer) {
           addOneEvent(event, containerID);
+        } else {
+          // check if event exists
+          let eventExists = existingEvents?.find(
+            (e) => e.data().event.eventDateTime === event.eventDt
+          );
+          if (!eventExists) {
+            addOneEvent(event, containerID);
+          }
         }
       }
       break;
