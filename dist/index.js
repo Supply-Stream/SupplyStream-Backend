@@ -11,6 +11,7 @@ const get_workbook_1 = __importDefault(require("./api/routes/get-workbook"));
 const delete_comment_1 = __importDefault(require("./api/routes/delete-comment"));
 const duplicate_container_1 = __importDefault(require("./api/routes/duplicate-container"));
 const add_new_container_1 = __importDefault(require("./api/routes/add-new-container"));
+const add_multiple_containers_1 = __importDefault(require("./api/routes/add-multiple-containers"));
 (0, dotenv_1.config)();
 const app = (0, express_1.default)();
 app.use((0, cors_1.default)());
@@ -20,6 +21,7 @@ app.use("/get-workbook", get_workbook_1.default);
 app.use("/delete-comment", delete_comment_1.default);
 app.use("/duplicate-container", duplicate_container_1.default);
 app.use("/add-new-container", add_new_container_1.default);
+app.use("/add-multiple-containers", add_multiple_containers_1.default);
 app.listen(process.env.PORT, () => {
     console.log(`Server is running on port ${process.env.PORT}`);
 });
