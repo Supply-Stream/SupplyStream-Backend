@@ -32,7 +32,12 @@ async function getCoscoEvents(containerID) {
     };
     try {
         let coscoEvents = await (0, axios_1.default)(config);
-        return coscoEvents?.data?.data.content.containers[0].containerCircleStatus;
+        let coscoEventList = coscoEvents?.data?.data.content.containers[0].containerCircleStatus;
+        let sortedEvents = coscoEventList.sort((a, b) => {
+            // parse the dates and compare them
+            return (new Date(a.timeOfIssue).getTime() - new Date(b.timeOfIssue).getTime());
+        });
+        return sortedEvents;
     }
     catch (error) {
         await axiom_1.client.ingestEvents("supplystream-errors", [

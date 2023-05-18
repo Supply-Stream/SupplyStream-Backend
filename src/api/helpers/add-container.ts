@@ -7,10 +7,12 @@ import updateMSCTable from "./update-table/update-msc-table";
 import updateMaerskTable from "./update-table/update-maersk-table";
 import updateZimTable from "./update-table/update-zim-table";
 import updateOneTable from "./update-table/update-one-table";
+import updateCoscoTable from "./update-table/update-cosco-table";
 import addMscEvent from "./add-event-docs/add-msc-event";
 import addMaerskEvent from "./add-event-docs/add-maersk-event";
 import addZimEvent from "./add-event-docs/add-zim-event";
 import addOneEvent from "./add-event-docs/add-one-event";
+import addCoscoEvent from "./add-event-docs/add-cosco-event";
 
 export default async function addContainer(
   shippingLine: string,
@@ -100,8 +102,24 @@ export default async function addContainer(
       }
       break;
     case "COSCO":
-      // let cosco_events = await getCoscoEvents(containerID);
-
+      let cosco_events = await getCoscoEvents(containerID);
+      if (cosco_events.length === 0) {
+        return;
+      }
+      for (let event of cosco_events) {
+        await updateCoscoTable(containerID, event);
+        if (newContainer) {
+          addCoscoEvent(event, containerID);
+        } else {
+          // check if event exists
+          let eventExists = existingEvents?.find(
+            (e) => e.data().event.eventDateTime === event?.timeOfIssue
+          );
+          if (!eventExists) {
+            addCoscoEvent(event, containerID);
+          }
+        }
+      }
       break;
     default:
       break;

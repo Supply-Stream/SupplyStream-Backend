@@ -11,6 +11,7 @@ import addMultipleContainers from "./api/routes/add-multiple-containers";
 import getContainerEvents from "./api/routes/get-container-events";
 import archiveContainer from "./api/routes/archive-container";
 import updateAllContainers from "./cron/update-all-containers";
+import addContainer from "./api/helpers/add-container";
 
 config();
 const app = express();

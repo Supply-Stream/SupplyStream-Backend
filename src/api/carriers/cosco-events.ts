@@ -36,7 +36,17 @@ export default async function getCoscoEvents(
 
   try {
     let coscoEvents = await axios(config);
-    return coscoEvents?.data?.data.content.containers[0].containerCircleStatus;
+    let coscoEventList =
+      coscoEvents?.data?.data.content.containers[0].containerCircleStatus;
+    let sortedEvents = coscoEventList.sort(
+      (a: CoscoEventsInterface, b: CoscoEventsInterface) => {
+        // parse the dates and compare them
+        return (
+          new Date(a.timeOfIssue).getTime() - new Date(b.timeOfIssue).getTime()
+        );
+      }
+    );
+    return sortedEvents;
   } catch (error) {
     await client.ingestEvents("supplystream-errors", [
       { error: error, originEndpoint: "cosco-events" },
