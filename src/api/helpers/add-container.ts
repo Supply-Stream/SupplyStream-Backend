@@ -21,6 +21,9 @@ export default async function addContainer(
   switch (shippingLine) {
     case "MSC":
       let msc_events = await getMSCEvents(containerID);
+      if (msc_events.length === 0) {
+        return;
+      }
       for (let event of msc_events) {
         await updateMSCTable(containerID, event);
         if (newContainer) {
@@ -38,6 +41,9 @@ export default async function addContainer(
       break;
     case "MAERSK":
       let maersk_events = await getMaerskEvents(containerID);
+      if (maersk_events.length === 0) {
+        return;
+      }
       for (let event of maersk_events) {
         await updateMaerskTable(containerID, event);
         if (newContainer) {
@@ -55,6 +61,9 @@ export default async function addContainer(
       break;
     case "ZIM":
       let zim_events = await getZimEvents(containerID);
+      if (zim_events.length === 0) {
+        return;
+      }
       for (let event of zim_events) {
         await updateZimTable(containerID, event);
         if (newContainer) {
@@ -72,6 +81,9 @@ export default async function addContainer(
       break;
     case "ONE":
       let one_events = await getOneEvents(containerID);
+      if (one_events.length === 0) {
+        return;
+      }
       for (let event of one_events) {
         await updateOneTable(containerID, event);
         if (newContainer) {
