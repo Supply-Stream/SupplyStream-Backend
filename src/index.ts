@@ -20,7 +20,7 @@ app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-cron.schedule("0 7,13 * * *", async () => {
+cron.schedule("0 7,13,20 * * *", async () => {
   updateAllContainers();
 });
 
