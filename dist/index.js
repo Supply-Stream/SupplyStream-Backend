@@ -21,7 +21,7 @@ const app = (0, express_1.default)();
 app.use((0, cors_1.default)());
 app.use(body_parser_1.default.urlencoded({ extended: false }));
 app.use(body_parser_1.default.json());
-node_cron_1.default.schedule("0 7,13 * * *", async () => {
+node_cron_1.default.schedule("0 7,13,20 * * *", async () => {
     (0, update_all_containers_1.default)();
 });
 app.use("/get-workbook", get_workbook_1.default);

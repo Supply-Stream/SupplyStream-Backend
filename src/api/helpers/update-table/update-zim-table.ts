@@ -1,6 +1,7 @@
 import ZimEventsInterface from "../../interfaces/ZimEventsInterface";
 import admin from "../../../config/firebase";
 import checkDate from "../checkDate";
+import formatDate from "../format-date";
 
 export default async function updateZimTable(
   containerID: string,
@@ -36,9 +37,7 @@ export default async function updateZimTable(
           .collection("containers")
           .doc(containerID)
           .update({
-            "template.EST ARRIVAL": new Date(
-              event?.activityDateTz
-            ).toLocaleDateString(),
+            "template.EST ARRIVAL": formatDate(event?.activityDateTz),
           });
         return;
       }
@@ -48,9 +47,7 @@ export default async function updateZimTable(
         .collection("containers")
         .doc(containerID)
         .update({
-          "template.EST ARRIVAL": new Date(
-            event?.activityDateTz
-          ).toLocaleDateString(),
+          "template.EST ARRIVAL": formatDate(event?.activityDateTz),
         });
       return;
     }
@@ -65,9 +62,7 @@ export default async function updateZimTable(
       .collection("containers")
       .doc(containerID)
       .update({
-        "template.SHIP DATE": new Date(
-          event?.activityDateTz
-        ).toLocaleDateString(),
+        "template.SHIP DATE": formatDate(event?.activityDateTz),
       });
     return;
   }
@@ -85,9 +80,7 @@ export default async function updateZimTable(
       .collection("containers")
       .doc(containerID)
       .update({
-        "template.OUTGATED FROM TERMINAL": new Date(
-          event?.activityDateTz
-        ).toLocaleDateString(),
+        "template.OUTGATED FROM TERMINAL": formatDate(event?.activityDateTz),
       });
     return;
   }
@@ -98,9 +91,7 @@ export default async function updateZimTable(
       .collection("containers")
       .doc(containerID)
       .update({
-        "template.RETURNED TO TERMINAL": new Date(
-          event?.activityDateTz
-        ).toLocaleDateString(),
+        "template.RETURNED TO TERMINAL": formatDate(event?.activityDateTz),
       });
     return;
   }

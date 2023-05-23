@@ -1,6 +1,8 @@
 import MscEventsInterface from "../../interfaces/MscEventsInterface";
 import admin from "../../../config/firebase";
 import checkDate from "../checkDate";
+import formatDate from "../format-date";
+
 export default async function updateMSCTable(
   containerID: string,
   event: MscEventsInterface
@@ -32,9 +34,7 @@ export default async function updateMSCTable(
             .collection("containers")
             .doc(containerID)
             .update({
-              "template.EST ARRIVAL": new Date(
-                event?.eventDateTime
-              ).toLocaleDateString(),
+              "template.EST ARRIVAL": formatDate(event?.eventDateTime),
             });
           return;
         }
@@ -44,9 +44,7 @@ export default async function updateMSCTable(
           .collection("containers")
           .doc(containerID)
           .update({
-            "template.EST ARRIVAL": new Date(
-              event?.eventDateTime
-            ).toLocaleDateString(),
+            "template.EST ARRIVAL": formatDate(event?.eventDateTime),
           });
       }
       break;
@@ -57,9 +55,7 @@ export default async function updateMSCTable(
         .collection("containers")
         .doc(containerID)
         .update({
-          "template.SHIP DATE": new Date(
-            event?.eventDateTime
-          ).toLocaleDateString(),
+          "template.SHIP DATE": formatDate(event?.eventDateTime),
         });
       break;
 
@@ -81,9 +77,7 @@ export default async function updateMSCTable(
         .collection("containers")
         .doc(containerID)
         .update({
-          "template.OUTGATED FROM TERMINAL": new Date(
-            event?.eventDateTime
-          ).toLocaleDateString(),
+          "template.OUTGATED FROM TERMINAL": formatDate(event?.eventDateTime),
         });
       break;
 
@@ -93,9 +87,7 @@ export default async function updateMSCTable(
         .collection("containers")
         .doc(containerID)
         .update({
-          "template.RETURNED TO TERMINAL": new Date(
-            event?.eventDateTime
-          ).toLocaleDateString(),
+          "template.RETURNED TO TERMINAL": formatDate(event?.eventDateTime),
         });
       break;
   }

@@ -1,7 +1,7 @@
-import MaerskEventsInterface from "../../interfaces/MaerskEventsInterface";
 import CoscoEventsInterface from "../../interfaces/CoscoEventsInterface";
 import admin from "../../../config/firebase";
-import checkDate from "../checkDate";
+import formatDate from "../format-date";
+
 export default async function updateCoscoTable(
   containerID: string,
   event: CoscoEventsInterface
@@ -14,9 +14,7 @@ export default async function updateCoscoTable(
           .collection("containers")
           .doc(containerID)
           .update({
-            "template.SHIP DATE": new Date(
-              event?.timeOfIssue
-            ).toLocaleDateString(),
+            "template.SHIP DATE": formatDate(event?.timeOfIssue),
           });
         await admin
           .firestore()
@@ -42,9 +40,7 @@ export default async function updateCoscoTable(
           .collection("containers")
           .doc(containerID)
           .update({
-            "template.EST ARRIVAL": new Date(
-              event?.timeOfIssue
-            ).toLocaleDateString(),
+            "template.EST ARRIVAL": formatDate(event?.timeOfIssue),
           });
       }
       break;
@@ -55,9 +51,7 @@ export default async function updateCoscoTable(
           .collection("containers")
           .doc(containerID)
           .update({
-            "template.OUTGATED FROM TERMINAL": new Date(
-              event?.timeOfIssue
-            ).toLocaleDateString(),
+            "template.OUTGATED FROM TERMINAL": formatDate(event?.timeOfIssue),
           });
       }
       break;
@@ -68,9 +62,7 @@ export default async function updateCoscoTable(
           .collection("containers")
           .doc(containerID)
           .update({
-            "template.RETURNED TO TERMINAL": new Date(
-              event?.timeOfIssue
-            ).toLocaleDateString(),
+            "template.RETURNED TO TERMINAL": formatDate(event?.timeOfIssue),
           });
       }
       break;

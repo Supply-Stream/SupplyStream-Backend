@@ -5,6 +5,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const firebase_1 = __importDefault(require("../../../config/firebase"));
 const checkDate_1 = __importDefault(require("../checkDate"));
+const format_date_1 = __importDefault(require("../format-date"));
 async function updateZimTable(containerID, event) {
     if (event?.eventName.startsWith("Container was loaded")) {
         await firebase_1.default.firestore().collection("containers").doc(containerID).update({
@@ -34,7 +35,7 @@ async function updateZimTable(containerID, event) {
                     .collection("containers")
                     .doc(containerID)
                     .update({
-                    "template.EST ARRIVAL": new Date(event?.activityDateTz).toLocaleDateString(),
+                    "template.EST ARRIVAL": (0, format_date_1.default)(event?.activityDateTz),
                 });
                 return;
             }
@@ -45,7 +46,7 @@ async function updateZimTable(containerID, event) {
                 .collection("containers")
                 .doc(containerID)
                 .update({
-                "template.EST ARRIVAL": new Date(event?.activityDateTz).toLocaleDateString(),
+                "template.EST ARRIVAL": (0, format_date_1.default)(event?.activityDateTz),
             });
             return;
         }
@@ -57,7 +58,7 @@ async function updateZimTable(containerID, event) {
             .collection("containers")
             .doc(containerID)
             .update({
-            "template.SHIP DATE": new Date(event?.activityDateTz).toLocaleDateString(),
+            "template.SHIP DATE": (0, format_date_1.default)(event?.activityDateTz),
         });
         return;
     }
@@ -73,7 +74,7 @@ async function updateZimTable(containerID, event) {
             .collection("containers")
             .doc(containerID)
             .update({
-            "template.OUTGATED FROM TERMINAL": new Date(event?.activityDateTz).toLocaleDateString(),
+            "template.OUTGATED FROM TERMINAL": (0, format_date_1.default)(event?.activityDateTz),
         });
         return;
     }
@@ -83,7 +84,7 @@ async function updateZimTable(containerID, event) {
             .collection("containers")
             .doc(containerID)
             .update({
-            "template.RETURNED TO TERMINAL": new Date(event?.activityDateTz).toLocaleDateString(),
+            "template.RETURNED TO TERMINAL": (0, format_date_1.default)(event?.activityDateTz),
         });
         return;
     }

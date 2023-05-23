@@ -5,6 +5,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const firebase_1 = __importDefault(require("../../../config/firebase"));
 const checkDate_1 = __importDefault(require("../checkDate"));
+const format_date_1 = __importDefault(require("../format-date"));
 async function updateMaerskTable(containerID, event) {
     switch (event.eventClassifierCode) {
         case "EST":
@@ -30,7 +31,7 @@ async function updateMaerskTable(containerID, event) {
                             .collection("containers")
                             .doc(containerID)
                             .update({
-                            "template.EST ARRIVAL": new Date(event?.eventDateTime).toLocaleDateString(),
+                            "template.EST ARRIVAL": (0, format_date_1.default)(event?.eventDateTime),
                         });
                         return;
                     }
@@ -41,7 +42,7 @@ async function updateMaerskTable(containerID, event) {
                         .collection("containers")
                         .doc(containerID)
                         .update({
-                        "template.EST ARRIVAL": new Date(event?.eventDateTime).toLocaleDateString(),
+                        "template.EST ARRIVAL": (0, format_date_1.default)(event?.eventDateTime),
                     });
                     return;
                 }
@@ -55,7 +56,7 @@ async function updateMaerskTable(containerID, event) {
                     .collection("containers")
                     .doc(containerID)
                     .update({
-                    "template.SHIP DATE": new Date(event?.eventDateTime).toLocaleDateString(),
+                    "template.SHIP DATE": (0, format_date_1.default)(event?.eventDateTime),
                 });
                 return;
             }
@@ -79,7 +80,7 @@ async function updateMaerskTable(containerID, event) {
                             .collection("containers")
                             .doc(containerID)
                             .update({
-                            "template.EST ARRIVAL": new Date(event?.eventDateTime).toLocaleDateString(),
+                            "template.EST ARRIVAL": (0, format_date_1.default)(event?.eventDateTime),
                         });
                         return;
                     }
@@ -90,7 +91,7 @@ async function updateMaerskTable(containerID, event) {
                         .collection("containers")
                         .doc(containerID)
                         .update({
-                        "template.EST ARRIVAL": new Date(event?.eventDateTime).toLocaleDateString(),
+                        "template.EST ARRIVAL": (0, format_date_1.default)(event?.eventDateTime),
                     });
                     return;
                 }
@@ -122,7 +123,7 @@ async function updateMaerskTable(containerID, event) {
                     .collection("containers")
                     .doc(containerID)
                     .update({
-                    "template.OUTGATED FROM TERMINAL": new Date(event?.eventDateTime).toLocaleDateString(),
+                    "template.OUTGATED FROM TERMINAL": (0, format_date_1.default)(event?.eventDateTime),
                 });
                 return;
             }
@@ -133,7 +134,7 @@ async function updateMaerskTable(containerID, event) {
                     .collection("containers")
                     .doc(containerID)
                     .update({
-                    "template.RETURNED TO TERMINAL": new Date(event?.eventDateTime).toLocaleDateString(),
+                    "template.RETURNED TO TERMINAL": (0, format_date_1.default)(event?.eventDateTime),
                 });
                 return;
             }

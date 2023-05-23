@@ -4,6 +4,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const firebase_1 = __importDefault(require("../../../config/firebase"));
+const format_date_1 = __importDefault(require("../format-date"));
 async function updateOneTable(containerID, event) {
     if (event?.statusNm.includes("Departure from Port of Loading") &&
         event?.actTpCd === "A") {
@@ -12,7 +13,7 @@ async function updateOneTable(containerID, event) {
             .collection("containers")
             .doc(containerID)
             .update({
-            "template.SHIP DATE": new Date(event?.eventDt).toLocaleDateString(),
+            "template.SHIP DATE": (0, format_date_1.default)(event?.eventDt),
         });
         return;
     }
@@ -31,7 +32,7 @@ async function updateOneTable(containerID, event) {
             .doc(containerID)
             .update({
             "template.PORT OF ARRIVAL": event?.placeNm,
-            "template.EST ARRIVAL": new Date(event?.eventDt).toLocaleDateString(),
+            "template.EST ARRIVAL": (0, format_date_1.default)(event?.eventDt),
         });
         return;
     }
@@ -42,7 +43,7 @@ async function updateOneTable(containerID, event) {
             .collection("containers")
             .doc(containerID)
             .update({
-            "template.OUTGATED FROM TERMINAL": new Date(event?.eventDt).toLocaleDateString(),
+            "template.OUTGATED FROM TERMINAL": (0, format_date_1.default)(event?.eventDt),
         });
         return;
     }
@@ -53,7 +54,7 @@ async function updateOneTable(containerID, event) {
             .collection("containers")
             .doc(containerID)
             .update({
-            "template.RETURNED TO TERMINAL": new Date(event?.eventDt).toLocaleDateString(),
+            "template.RETURNED TO TERMINAL": (0, format_date_1.default)(event?.eventDt),
         });
         return;
     }

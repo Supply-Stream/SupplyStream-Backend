@@ -1,6 +1,6 @@
 import OneEventsInterface from "../../interfaces/OneEventsInterface";
 import admin from "../../../config/firebase";
-import checkDate from "../checkDate";
+import formatDate from "../format-date";
 
 export default async function updateOneTable(
   containerID: string,
@@ -15,7 +15,7 @@ export default async function updateOneTable(
       .collection("containers")
       .doc(containerID)
       .update({
-        "template.SHIP DATE": new Date(event?.eventDt).toLocaleDateString(),
+        "template.SHIP DATE": formatDate(event?.eventDt),
       });
     return;
   }
@@ -37,7 +37,7 @@ export default async function updateOneTable(
       .doc(containerID)
       .update({
         "template.PORT OF ARRIVAL": event?.placeNm,
-        "template.EST ARRIVAL": new Date(event?.eventDt).toLocaleDateString(),
+        "template.EST ARRIVAL": formatDate(event?.eventDt),
       });
     return;
   }
@@ -51,9 +51,7 @@ export default async function updateOneTable(
       .collection("containers")
       .doc(containerID)
       .update({
-        "template.OUTGATED FROM TERMINAL": new Date(
-          event?.eventDt
-        ).toLocaleDateString(),
+        "template.OUTGATED FROM TERMINAL": formatDate(event?.eventDt),
       });
     return;
   }
@@ -66,9 +64,7 @@ export default async function updateOneTable(
       .collection("containers")
       .doc(containerID)
       .update({
-        "template.RETURNED TO TERMINAL": new Date(
-          event?.eventDt
-        ).toLocaleDateString(),
+        "template.RETURNED TO TERMINAL": formatDate(event?.eventDt),
       });
     return;
   }
