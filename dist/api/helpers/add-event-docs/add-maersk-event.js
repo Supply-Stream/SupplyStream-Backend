@@ -13,6 +13,39 @@ async function addMaerskEvent(event, containerID) {
         .add({
         event: event,
     });
+    let containerDoc = await firebase_1.default
+        .firestore()
+        .collection("containers")
+        .doc(containerID)
+        .get();
+    if (containerDoc.exists) {
+        let eventDescription;
+        switch (event.eventType) {
+            case "SHIPMENT":
+                eventDescription = event.shipmentEventTypeCode;
+                break;
+            case "TRANSPORT":
+                eventDescription = event.transportEventTypeCode;
+                break;
+            case "EQUIPMENT":
+                eventDescription = event.equipmentEventTypeCode;
+                break;
+            default:
+                eventDescription = event.eventType;
+                break;
+        }
+        await firebase_1.default
+            .firestore()
+            .collection("feed")
+            .add({
+            description: eventDescription,
+            eventDateTime: event.eventDateTime,
+            containerID: containerID,
+            company: containerDoc.data()?.company,
+            eventType: event.eventClassifierCode === "ACT" ? "Actual" : "Estimated",
+            shippingLine: containerDoc.data()?.shippingLine,
+        });
+    }
 }
 exports.default = addMaerskEvent;
 //# sourceMappingURL=add-maersk-event.js.map

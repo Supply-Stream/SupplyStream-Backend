@@ -17,6 +17,21 @@ async function addZimEvent(event, containerID) {
             eventClassifierCode: "ACT",
         },
     });
+    let containerDoc = await firebase_1.default
+        .firestore()
+        .collection("containers")
+        .doc(containerID)
+        .get();
+    if (containerDoc.exists) {
+        await firebase_1.default.firestore().collection("feed").add({
+            description: event.eventName,
+            eventDateTime: event?.activityDateTz,
+            containerID: containerID,
+            company: containerDoc.data()?.company,
+            eventType: "Actual",
+            shippingLine: containerDoc.data()?.shippingLine,
+        });
+    }
 }
 exports.default = addZimEvent;
 //# sourceMappingURL=add-zim-event.js.map

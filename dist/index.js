@@ -16,6 +16,7 @@ const add_multiple_containers_1 = __importDefault(require("./api/routes/add-mult
 const get_container_events_1 = __importDefault(require("./api/routes/get-container-events"));
 const archive_container_1 = __importDefault(require("./api/routes/archive-container"));
 const update_all_containers_1 = __importDefault(require("./cron/update-all-containers"));
+const get_feed_1 = __importDefault(require("./api/routes/get-feed"));
 (0, dotenv_1.config)();
 const app = (0, express_1.default)();
 app.use((0, cors_1.default)());
@@ -31,6 +32,7 @@ app.use("/add-new-container", add_new_container_1.default);
 app.use("/add-multiple-containers", add_multiple_containers_1.default);
 app.use("/get-container-events", get_container_events_1.default);
 app.use("/archive-container", archive_container_1.default);
+app.use("/get-feed", get_feed_1.default);
 app.listen(process.env.PORT, () => {
     console.log(`Server is running on port ${process.env.PORT}`);
 });

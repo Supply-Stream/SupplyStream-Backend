@@ -34,6 +34,24 @@ async function addOneEvent(event, containerID) {
             },
         });
     }
+    let containerDoc = await firebase_1.default
+        .firestore()
+        .collection("containers")
+        .doc(containerID)
+        .get();
+    if (containerDoc.exists) {
+        await firebase_1.default
+            .firestore()
+            .collection("feed")
+            .add({
+            description: event?.statusNm ? event?.statusNm : "NULL",
+            eventDateTime: event?.eventDt ? event?.eventDt : "NULL",
+            containerID: containerID,
+            company: containerDoc.data()?.company,
+            eventType: event?.actTpCd === "A" ? "Actual" : "Estimated",
+            shippingLine: containerDoc.data()?.shippingLine,
+        });
+    }
 }
 exports.default = addOneEvent;
 //# sourceMappingURL=add-one-event.js.map

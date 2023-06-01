@@ -13,6 +13,24 @@ async function addMscEvent(event, containerID) {
         .add({
         event: event,
     });
+    let containerDoc = await firebase_1.default
+        .firestore()
+        .collection("containers")
+        .doc(containerID)
+        .get();
+    if (containerDoc.exists) {
+        await firebase_1.default
+            .firestore()
+            .collection("feed")
+            .add({
+            description: event.description,
+            eventDateTime: event.eventDateTime,
+            containerID: containerID,
+            company: containerDoc.data()?.company,
+            eventType: event?.eventClassifierCode === "ACT" ? "Actual" : "Estimated",
+            shippingLine: containerDoc.data()?.shippingLine,
+        });
+    }
 }
 exports.default = addMscEvent;
 //# sourceMappingURL=add-msc-event.js.map
