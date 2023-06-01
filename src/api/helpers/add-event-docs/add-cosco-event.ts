@@ -19,4 +19,24 @@ export default async function addCoscoEvent(
         eventClassifierCode: "ACT",
       },
     });
+
+  let containerDoc = await admin
+    .firestore()
+    .collection("containers")
+    .doc(containerID)
+    .get();
+  if (containerDoc.exists) {
+    await admin
+      .firestore()
+      .collection("feed")
+      .add({
+        description: event?.containerNumberStatus
+          ? event?.containerNumberStatus
+          : "NULL",
+        eventDateTime: event?.timeOfIssue ? event?.timeOfIssue : "NULL",
+        containerID: containerID,
+        company: containerDoc.data()?.company,
+        eventType: "Actual",
+      });
+  }
 }

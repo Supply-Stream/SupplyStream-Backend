@@ -33,4 +33,22 @@ export default async function addOneEvent(
         },
       });
   }
+
+  let containerDoc = await admin
+    .firestore()
+    .collection("containers")
+    .doc(containerID)
+    .get();
+  if (containerDoc.exists) {
+    await admin
+      .firestore()
+      .collection("feed")
+      .add({
+        description: event?.statusNm ? event?.statusNm : "NULL",
+        eventDateTime: event?.eventDt ? event?.eventDt : "NULL",
+        containerID: containerID,
+        company: containerDoc.data()?.company,
+        eventType: event?.actTpCd === "A" ? "Actual" : "Estimated",
+      });
+  }
 }

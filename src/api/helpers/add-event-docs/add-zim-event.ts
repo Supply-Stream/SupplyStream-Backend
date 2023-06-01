@@ -17,4 +17,20 @@ export default async function addZimEvent(
         eventClassifierCode: "ACT",
       },
     });
+
+  let containerDoc = await admin
+    .firestore()
+    .collection("containers")
+    .doc(containerID)
+    .get();
+
+  if (containerDoc.exists) {
+    await admin.firestore().collection("feed").add({
+      description: event.eventName,
+      eventDateTime: event?.activityDateTz,
+      containerID: containerID,
+      company: containerDoc.data()?.company,
+      eventType: "Actual",
+    });
+  }
 }
