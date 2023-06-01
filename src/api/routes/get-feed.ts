@@ -9,14 +9,17 @@ router.get("/", async (req: Request, res: Response) => {
     res.send("No company provided");
     return;
   }
-
-  let query = await admin
-    .firestore()
-    .collection("feed")
-    .where("company", "==", req.query.company)
-    .get();
-  let docData = query.docs.map((doc) => doc.data());
-  res.send(docData);
+  try {
+    let query = await admin
+      .firestore()
+      .collection("feed")
+      .where("company", "==", req.query.company)
+      .get();
+    let docData = query.docs.map((doc) => doc.data());
+    res.send(docData);
+  } catch (error) {
+    console.log(error);
+  }
 });
 
 export default router;
