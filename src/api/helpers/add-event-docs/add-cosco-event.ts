@@ -37,6 +37,7 @@ export default async function addCoscoEvent(
         containerID: containerID,
         company: containerDoc.data()?.company,
         eventType: "Actual",
+        shippingLine: containerDoc.data()?.shippingLine,
       });
   }
 }

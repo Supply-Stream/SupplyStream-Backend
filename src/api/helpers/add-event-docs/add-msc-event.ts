@@ -29,6 +29,7 @@ export default async function addMscEvent(
         company: containerDoc.data()?.company,
         eventType:
           event?.eventClassifierCode === "ACT" ? "Actual" : "Estimated",
+        shippingLine: containerDoc.data()?.shippingLine,
       });
   }
 }

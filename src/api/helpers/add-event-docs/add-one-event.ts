@@ -49,6 +49,7 @@ export default async function addOneEvent(
         containerID: containerID,
         company: containerDoc.data()?.company,
         eventType: event?.actTpCd === "A" ? "Actual" : "Estimated",
+        shippingLine: containerDoc.data()?.shippingLine,
       });
   }
 }

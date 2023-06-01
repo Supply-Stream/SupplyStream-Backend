@@ -45,6 +45,7 @@ export default async function addMaerskEvent(
         containerID: containerID,
         company: containerDoc.data()?.company,
         eventType: event.eventClassifierCode === "ACT" ? "Actual" : "Estimated",
+        shippingLine: containerDoc.data()?.shippingLine,
       });
   }
 }

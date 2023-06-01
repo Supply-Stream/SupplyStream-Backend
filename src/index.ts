@@ -11,7 +11,7 @@ import addMultipleContainers from "./api/routes/add-multiple-containers";
 import getContainerEvents from "./api/routes/get-container-events";
 import archiveContainer from "./api/routes/archive-container";
 import updateAllContainers from "./cron/update-all-containers";
-import addContainer from "./api/helpers/add-container";
+import getFeed from "./api/routes/get-feed";
 
 config();
 const app = express();
@@ -20,9 +20,9 @@ app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-// cron.schedule("0 7,13,20 * * *", async () => {
-//   updateAllContainers();
-// });
+cron.schedule("0 7,13,20 * * *", async () => {
+  updateAllContainers();
+});
 
 app.use("/get-workbook", getWorkbook);
 
@@ -38,8 +38,8 @@ app.use("/get-container-events", getContainerEvents);
 
 app.use("/archive-container", archiveContainer);
 
+app.use("/get-feed", getFeed);
+
 app.listen(process.env.PORT, () => {
   console.log(`Server is running on port ${process.env.PORT}`);
 });
-
-updateAllContainers();
