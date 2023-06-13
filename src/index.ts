@@ -12,6 +12,7 @@ import getContainerEvents from "./api/routes/get-container-events";
 import archiveContainer from "./api/routes/archive-container";
 import updateAllContainers from "./cron/update-all-containers";
 import getFeed from "./api/routes/get-feed";
+import importBulkData from "./api/routes/import-bulk-data";
 
 config();
 const app = express();
@@ -39,6 +40,8 @@ app.use("/get-container-events", getContainerEvents);
 app.use("/archive-container", archiveContainer);
 
 app.use("/get-feed", getFeed);
+
+app.use("/import-bulk-data", importBulkData);
 
 app.listen(process.env.PORT, () => {
   console.log(`Server is running on port ${process.env.PORT}`);
