@@ -138,6 +138,18 @@ async function updateMaerskTable(containerID, event) {
                 });
                 return;
             }
+            if (event?.eventType === "EQUIPMENT" &&
+                event?.emptyIndicatorCode == "EMPTY" &&
+                event?.equipmentEventTypeCode == "GTIN") {
+                await firebase_1.default
+                    .firestore()
+                    .collection("containers")
+                    .doc(containerID)
+                    .update({
+                    "template.RETURNED TO TERMINAL": (0, format_date_1.default)(event?.eventDateTime),
+                });
+                return;
+            }
             break;
     }
 }

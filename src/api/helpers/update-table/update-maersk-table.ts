@@ -146,6 +146,20 @@ export default async function updateMaerskTable(
           });
         return;
       }
+      if (
+        event?.eventType === "EQUIPMENT" &&
+        event?.emptyIndicatorCode == "EMPTY" &&
+        event?.equipmentEventTypeCode == "GTIN"
+      ) {
+        await admin
+          .firestore()
+          .collection("containers")
+          .doc(containerID)
+          .update({
+            "template.RETURNED TO TERMINAL": formatDate(event?.eventDateTime),
+          });
+        return;
+      }
       break;
   }
 }
