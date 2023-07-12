@@ -83,6 +83,15 @@ async function updateMSCTable(containerID, event) {
                 "template.RETURNED TO TERMINAL": (0, format_date_1.default)(event?.eventDateTime),
             });
             break;
+        case "Empty to Shipper":
+            await firebase_1.default
+                .firestore()
+                .collection("containers")
+                .doc(containerID)
+                .update({
+                "template.RETURNED TO TERMINAL": (0, format_date_1.default)(event?.eventDateTime),
+            });
+            break;
     }
 }
 exports.default = updateMSCTable;

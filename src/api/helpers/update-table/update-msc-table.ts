@@ -90,5 +90,15 @@ export default async function updateMSCTable(
           "template.RETURNED TO TERMINAL": formatDate(event?.eventDateTime),
         });
       break;
+
+    case "Empty to Shipper":
+      await admin
+        .firestore()
+        .collection("containers")
+        .doc(containerID)
+        .update({
+          "template.RETURNED TO TERMINAL": formatDate(event?.eventDateTime),
+        });
+      break;
   }
 }
