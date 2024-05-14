@@ -24,7 +24,11 @@ export default async function updateAllContainers() {
 
     let containerEvents = containerEventDocs.docs;
 
-    await addContainer(shippingLine, containerID, false, containerEvents);
+    await addContainer(shippingLine, containerID, false, containerEvents).catch(
+      (err) => {
+        console.log(err);
+      }
+    );
   }
   await client.ingestEvents("supplystream-cron", {
     type: "success",
